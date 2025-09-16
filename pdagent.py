@@ -8,7 +8,7 @@ from openpyxl.styles import Alignment
 import base64
 
 # Set page configuration
-st.set_page_config(page_title="PREDICTIVE SUMMARIZER", page_icon="📊", layout="wide")
+st.set_page_config(page_title="NEIL", page_icon="📊", layout="wide")
 
 # Custom CSS for Demon Slayer-themed styling
 background_image = "url('https://images7.alphacoders.com/139/1398431.jpg')"
@@ -33,12 +33,32 @@ st.markdown(
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         margin: 20px;
     }}
-    /* Title styling with Demon Slayer-inspired colors */
+    /* Title styling with Demon Slayer-inspired colors, black stroke, and falling animation */
     h1 {{
         color: #ffffff; /* White for PREDICTIVE SUMMARIZER */
         font-family: 'Arial', sans-serif;
         text-align: center;
-        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+        text-shadow: 
+            -1px -1px 0 #000000,  
+             1px -1px 0 #000000,
+            -1px  1px 0 #000000,
+             1px  1px 0 #000000; /* Black stroke effect */
+        animation: fall 1.5s ease-out forwards; /* Falling animation */
+    }}
+    /* Falling animation keyframes */
+    @keyframes fall {{
+        0% {{
+            transform: translateY(-100px);
+            opacity: 0;
+        }}
+        70% {{
+            transform: translateY(10px);
+            opacity: 0.8;
+        }}
+        100% {{
+            transform: translateY(0);
+            opacity: 1;
+        }}
     }}
     /* File uploader styling */
     .stFileUploader {{
