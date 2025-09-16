@@ -15,7 +15,7 @@ def get_base64_image(image_path):
     with open(image_path, "rb") as img_file:
         return base64.b64encode(img_file.read()).decode()
 
-# Set background image
+# Set background image or fallback to solid color
 background_image = "background.jpg"  # Ensure this file exists in your project directory
 try:
     img_base64 = get_base64_image(background_image)
@@ -39,7 +39,22 @@ try:
         unsafe_allow_html=True
     )
 except FileNotFoundError:
-    st.warning("Background image 'background.jpg' not found. Please ensure it's in the project directory.")
+    st.warning("Background image 'background.jpg' not found. Using default background.")
+    st.markdown(
+        """
+        <style>
+        .stApp {{
+            background-color: #f0f2f6; /* Fallback solid color */
+        }}
+        .stApp > div {{
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
 # Title and description
 st.title("PREDICTIVE SUMMARIZER")
@@ -47,7 +62,7 @@ st.markdown("NEKENNAV")
 
 # File uploader widget
 uploaded_files = st.file_uploader(
-    "",  # Removed "Choose Excel files to merge"
+    "Choose Excel files to merge",
     accept_multiple_files=True,
     type=['xlsx', 'xls']
 )
@@ -85,7 +100,7 @@ def seconds_to_time(seconds):
     hours = seconds // 3600
     seconds %= 3600
     minutes = seconds // 60
-    seconds = seconds % 60
+    seconds %= 60
     return f"{hours}:{minutes:02d}:{seconds:02d}"
 
 # Function to merge and aggregate Excel files
@@ -232,6 +247,5 @@ if uploaded_files:
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             key="download_merged"
         )
-
 else:
     st.info("Please upload one or more Excel files to merge.")
