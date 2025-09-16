@@ -11,15 +11,7 @@ import base64
 st.set_page_config(page_title="PREDICTIVE SUMMARIZER", page_icon="📊", layout="wide")
 
 # Custom CSS for Demon Slayer-themed styling
-# To use a GitHub-hosted image, upload your Demon Slayer image to your repository
-# and use the raw GitHub URL (e.g., https://raw.githubusercontent.com/your-username/your-repo/main/demon_slayer_background.jpg)
-# Alternatively, use an external URL from a reliable source (e.g., Imgur, Pixabay).
-# Example: background_image = "url('https://i.imgur.com/your-demon-slayer-image.jpg')"
-background_image = "url('https://example.com/demon-slayer-background.jpg')"  # Replace with your image URL
-
-# If using a GitHub-hosted image, uncomment and modify the following:
-# background_image = "url('https://raw.githubusercontent.com/your-username/your-repo/main/demon_slayer_background.jpg')"
-
+background_image = "url('https://wallpapers.com/images/featured-full/cool-demon-slayer-background-gm931obhtuf1v5lo.jpg')"
 st.markdown(
     f"""
     <style>
@@ -33,7 +25,6 @@ st.markdown(
         color: #ffffff;
         background-color: #1c2526; /* Fallback color if image fails */
     }}
-
     /* Semi-transparent overlay for content readability */
     .main-container {{
         background: rgba(0, 0, 0, 0.7);
@@ -42,7 +33,6 @@ st.markdown(
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         margin: 20px;
     }}
-
     /* Title styling with Demon Slayer-inspired colors */
     h1 {{
         color: #ff4500; /* Fiery orange */
@@ -50,14 +40,12 @@ st.markdown(
         text-align: center;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }}
-
     /* Subtitle styling */
     h3 {{
         color: #00b7eb; /* Bright blue */
         font-family: 'Arial', sans-serif;
         text-align: center;
     }}
-
     /* File uploader styling */
     .stFileUploader {{
         background-color: rgba(255, 255, 255, 0.1);
@@ -65,7 +53,6 @@ st.markdown(
         border-radius: 10px;
         padding: 10px;
     }}
-
     /* Button styling */
     .stButton > button {{
         background-color: #ff4500;
@@ -78,7 +65,6 @@ st.markdown(
     .stButton > button:hover {{
         background-color: #e03e00; /* Darker orange on hover */
     }}
-
     /* Text area and dataframe styling */
     .stTextArea textarea, .stDataFrame {{
         background-color: rgba(255, 255, 255, 0.1);
@@ -86,14 +72,12 @@ st.markdown(
         border: 1px solid #00b7eb;
         border-radius: 8px;
     }}
-
     /* Alert styling */
     .stAlert {{
         background-color: rgba(0, 183, 235, 0.2);
         color: #ffffff;
         border-radius: 8px;
     }}
-
     /* Table text */
     .stText, table {{
         color: #ffffff;
@@ -108,10 +92,6 @@ st.markdown(
 st.markdown('<div class="main-container">', unsafe_allow_html=True)
 st.title("PREDICTIVE SUMMARIZER")
 st.markdown("<h3>NEKENNAV</h3>", unsafe_allow_html=True)
-
-# Sidebar for additional controls
-st.sidebar.header("Settings")
-theme_choice = st.sidebar.selectbox("Theme Mode", ["Dark (Demon Slayer)", "Light"])  # Placeholder for future theme switching
 
 # File uploader widget
 uploaded_files = st.file_uploader(
@@ -135,10 +115,10 @@ def time_to_seconds(time_val):
         if isinstance(time_val, str):
             parts = time_val.split(':')
             parts = [p.strip() for p in parts]
-            if len(parts) == 3:  # HH:MM:SS
+            if len(parts) == 3: # HH:MM:SS
                 h, m, s = map(int, parts)
                 return h * 3600 + m * 60 + s
-            elif len(parts) == 2:  # MM:SS
+            elif len(parts) == 2: # MM:SS
                 m, s = map(int, parts)
                 return m * 60 + s
         return 0
