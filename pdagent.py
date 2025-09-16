@@ -22,12 +22,12 @@ st.markdown(
         background-position: center;
         background-attachment: fixed;
         background-repeat: no-repeat;
-        color: #e6e6fa; /* Light lavender for text readability */
-        background-color: #1a1a2e; /* Deep navy fallback color */
+        color: #f0f0f0; /* Light gray for text readability */
+        background-color: #2c1810; /* Dark brown fallback color */
     }}
     /* Semi-transparent overlay for content readability */
     .main-container {{
-        background: rgba(20, 20, 40, 0.75); /* Darker semi-transparent overlay */
+        background: rgba(44, 24, 16, 0.8); /* Dark brown semi-transparent overlay */
         padding: 30px;
         border-radius: 15px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
@@ -35,54 +35,54 @@ st.markdown(
     }}
     /* Title styling with Demon Slayer-inspired colors */
     h1 {{
-        color: #ff4040; /* Fiery red for title */
+        color: #ff6b35; /* Vibrant orange for title */
         font-family: 'Arial', sans-serif;
         text-align: center;
         text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
     }}
     /* Subtitle styling */
     h3 {{
-        color: #b19cd9; /* Soft purple for subtitle */
+        color: #ffd23f; /* Golden yellow for subtitle */
         font-family: 'Arial', sans-serif;
         text-align: center;
     }}
     /* File uploader styling */
     .stFileUploader {{
-        background-color: rgba(40, 40, 80, 0.2); /* Dark blue-purple tint */
-        border: 2px dashed #b19cd9; /* Soft purple border */
+        background-color: rgba(255, 107, 53, 0.1); /* Light orange tint */
+        border: 2px solid #ff6b35; /* Solid orange border */
         border-radius: 10px;
         padding: 10px;
     }}
     /* Button styling */
     .stButton > button {{
-        background-color: #ff4040; /* Fiery red */
-        color: #e6e6fa; /* Light lavender text */
+        background-color: #ff6b35; /* Vibrant orange */
+        color: #f0f0f0; /* Light gray text */
         border-radius: 8px;
         padding: 10px 20px;
         font-weight: bold;
         transition: background-color 0.3s;
-        border: 1px solid #b19cd9; /* Purple border */
+        border: 1px solid #ffd23f; /* Golden border */
     }}
     .stButton > button:hover {{
-        background-color: #cc3333; /* Darker red on hover */
-        border-color: #9370db; /* Darker purple on hover */
+        background-color: #e55a2b; /* Darker orange on hover */
+        border-color: #ff6b35; /* Orange on hover */
     }}
     /* Text area and dataframe styling */
     .stTextArea textarea, .stDataFrame {{
-        background-color: rgba(40, 40, 80, 0.3); /* Darker blue-purple */
-        color: #e6e6fa; /* Light lavender text */
-        border: 1px solid #b19cd9; /* Soft purple border */
+        background-color: rgba(255, 107, 53, 0.15); /* Subtle orange tint */
+        color: #f0f0f0; /* Light gray text */
+        border: 1px solid #ff6b35; /* Solid orange border */
         border-radius: 8px;
     }}
     /* Alert styling */
     .stAlert {{
-        background-color: rgba(177, 156, 217, 0.3); /* Light purple tint */
-        color: #e6e6fa; /* Light lavender text */
+        background-color: rgba(255, 211, 63, 0.2); /* Light golden tint */
+        color: #f0f0f0; /* Light gray text */
         border-radius: 8px;
     }}
     /* Table text */
     .stText, table {{
-        color: #e6e6fa; /* Light lavender for table text */
+        color: #f0f0f0; /* Light gray for table text */
         font-family: 'Arial', sans-serif;
     }}
     </style>
