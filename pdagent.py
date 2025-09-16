@@ -11,7 +11,7 @@ import base64
 st.set_page_config(page_title="PREDICTIVE SUMMARIZER", page_icon="📊", layout="wide")
 
 # Custom CSS for Demon Slayer-themed styling
-background_image = "url('https://wallpapers.com/images/featured-full/cool-demon-slayer-background-gm931obhtuf1v5lo.jpg')"
+background_image = "url('https://images7.alphacoders.com/139/1398431.jpg')"
 st.markdown(
     f"""
     <style>
@@ -22,65 +22,67 @@ st.markdown(
         background-position: center;
         background-attachment: fixed;
         background-repeat: no-repeat;
-        color: #ffffff;
-        background-color: #1c2526; /* Fallback color if image fails */
+        color: #e6e6fa; /* Light lavender for text readability */
+        background-color: #1a1a2e; /* Deep navy fallback color */
     }}
     /* Semi-transparent overlay for content readability */
     .main-container {{
-        background: rgba(0, 0, 0, 0.7);
+        background: rgba(20, 20, 40, 0.75); /* Darker semi-transparent overlay */
         padding: 30px;
         border-radius: 15px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         margin: 20px;
     }}
     /* Title styling with Demon Slayer-inspired colors */
     h1 {{
-        color: #ff4500; /* Fiery orange */
+        color: #ff4040; /* Fiery red for title */
         font-family: 'Arial', sans-serif;
         text-align: center;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
     }}
     /* Subtitle styling */
     h3 {{
-        color: #00b7eb; /* Bright blue */
+        color: #b19cd9; /* Soft purple for subtitle */
         font-family: 'Arial', sans-serif;
         text-align: center;
     }}
     /* File uploader styling */
     .stFileUploader {{
-        background-color: rgba(255, 255, 255, 0.1);
-        border: 2px dashed #00b7eb;
+        background-color: rgba(40, 40, 80, 0.2); /* Dark blue-purple tint */
+        border: 2px dashed #b19cd9; /* Soft purple border */
         border-radius: 10px;
         padding: 10px;
     }}
     /* Button styling */
     .stButton > button {{
-        background-color: #ff4500;
-        color: white;
+        background-color: #ff4040; /* Fiery red */
+        color: #e6e6fa; /* Light lavender text */
         border-radius: 8px;
         padding: 10px 20px;
         font-weight: bold;
         transition: background-color 0.3s;
+        border: 1px solid #b19cd9; /* Purple border */
     }}
     .stButton > button:hover {{
-        background-color: #e03e00; /* Darker orange on hover */
+        background-color: #cc3333; /* Darker red on hover */
+        border-color: #9370db; /* Darker purple on hover */
     }}
     /* Text area and dataframe styling */
     .stTextArea textarea, .stDataFrame {{
-        background-color: rgba(255, 255, 255, 0.1);
-        color: #ffffff;
-        border: 1px solid #00b7eb;
+        background-color: rgba(40, 40, 80, 0.3); /* Darker blue-purple */
+        color: #e6e6fa; /* Light lavender text */
+        border: 1px solid #b19cd9; /* Soft purple border */
         border-radius: 8px;
     }}
     /* Alert styling */
     .stAlert {{
-        background-color: rgba(0, 183, 235, 0.2);
-        color: #ffffff;
+        background-color: rgba(177, 156, 217, 0.3); /* Light purple tint */
+        color: #e6e6fa; /* Light lavender text */
         border-radius: 8px;
     }}
     /* Table text */
     .stText, table {{
-        color: #ffffff;
+        color: #e6e6fa; /* Light lavender for table text */
         font-family: 'Arial', sans-serif;
     }}
     </style>
