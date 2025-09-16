@@ -8,100 +8,110 @@ from openpyxl.styles import Alignment
 import base64
 
 # Set page configuration
-st.set_page_config(page_title="PREDICTIVE SUMMARIZER", page_icon="📊", layout="wide")  # Added wide layout for better spacing
+st.set_page_config(page_title="PREDICTIVE SUMMARIZER", page_icon="📊", layout="wide")
 
 # Custom CSS for Demon Slayer-themed styling
+# To use a GitHub-hosted image, upload your Demon Slayer image to your repository
+# and use the raw GitHub URL (e.g., https://raw.githubusercontent.com/your-username/your-repo/main/demon_slayer_background.jpg)
+# Alternatively, use an external URL from a reliable source (e.g., Imgur, Pixabay).
+# Example: background_image = "url('https://i.imgur.com/your-demon-slayer-image.jpg')"
+background_image = "url('https://example.com/demon-slayer-background.jpg')"  # Replace with your image URL
+
+# If using a GitHub-hosted image, uncomment and modify the following:
+# background_image = "url('https://raw.githubusercontent.com/your-username/your-repo/main/demon_slayer_background.jpg')"
+
 st.markdown(
-    """
+    f"""
     <style>
     /* Main app background with Demon Slayer image */
-    .stApp {
-        background-image: url('https://example.com/demon-slayer-background.jpg'); /* Replace with actual Demon Slayer image URL */
+    .stApp {{
+        background-image: {background_image};
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
         background-repeat: no-repeat;
-        color: #ffffff; /* White text for contrast */
-    }
+        color: #ffffff;
+        background-color: #1c2526; /* Fallback color if image fails */
+    }}
 
     /* Semi-transparent overlay for content readability */
-    .main-container {
-        background: rgba(0, 0, 0, 0.7); /* Dark overlay for contrast */
+    .main-container {{
+        background: rgba(0, 0, 0, 0.7);
         padding: 30px;
         border-radius: 15px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         margin: 20px;
-    }
+    }}
 
     /* Title styling with Demon Slayer-inspired colors */
-    h1 {
-        color: #ff4500; /* Fiery orange inspired by Demon Slayer */
+    h1 {{
+        color: #ff4500; /* Fiery orange */
         font-family: 'Arial', sans-serif;
         text-align: center;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    }
+    }}
 
     /* Subtitle styling */
-    h3 {
-        color: #00b7eb; /* Bright blue for contrast */
+    h3 {{
+        color: #00b7eb; /* Bright blue */
         font-family: 'Arial', sans-serif;
         text-align: center;
-    }
+    }}
 
     /* File uploader styling */
-    .stFileUploader {
+    .stFileUploader {{
         background-color: rgba(255, 255, 255, 0.1);
         border: 2px dashed #00b7eb;
         border-radius: 10px;
         padding: 10px;
-    }
+    }}
 
     /* Button styling */
-    .stButton > button {
-        background-color: #ff4500; /* Fiery orange */
+    .stButton > button {{
+        background-color: #ff4500;
         color: white;
         border-radius: 8px;
         padding: 10px 20px;
         font-weight: bold;
         transition: background-color 0.3s;
-    }
-    .stButton > button:hover {
+    }}
+    .stButton > button:hover {{
         background-color: #e03e00; /* Darker orange on hover */
-    }
+    }}
 
-    /* Text area styling */
-    .stTextArea textarea {
+    /* Text area and dataframe styling */
+    .stTextArea textarea, .stDataFrame {{
         background-color: rgba(255, 255, 255, 0.1);
         color: #ffffff;
         border: 1px solid #00b7eb;
         border-radius: 8px;
-    }
+    }}
 
-    /* Info and success message styling */
-    .stAlert {
+    /* Alert styling */
+    .stAlert {{
         background-color: rgba(0, 183, 235, 0.2);
         color: #ffffff;
         border-radius: 8px;
-    }
+    }}
 
-    /* Ensure table text is readable */
-    .stText {
+    /* Table text */
+    .stText, table {{
         color: #ffffff;
         font-family: 'Arial', sans-serif;
-    }
+    }}
     </style>
     """,
     unsafe_allow_html=True
 )
 
 # Title and description
-st.markdown('<div class="main-container">', unsafe_allow_html=True)  # Wrap content in styled container
+st.markdown('<div class="main-container">', unsafe_allow_html=True)
 st.title("PREDICTIVE SUMMARIZER")
 st.markdown("<h3>NEKENNAV</h3>", unsafe_allow_html=True)
 
-# Sidebar for additional controls (optional)
+# Sidebar for additional controls
 st.sidebar.header("Settings")
-theme_choice = st.sidebar.selectbox("Theme Mode", ["Dark (Demon Slayer)", "Light"])  # Optional theme switcher
+theme_choice = st.sidebar.selectbox("Theme Mode", ["Dark (Demon Slayer)", "Light"])  # Placeholder for future theme switching
 
 # File uploader widget
 uploaded_files = st.file_uploader(
@@ -204,13 +214,13 @@ def merge_excel_files(files):
 
 # Process uploaded files
 if uploaded_files:
-    st.success(f"Successfully uploaded {len(uploaded_files)} file(s)!")
-    
-    merged_df, error = merge_excel_files(uploaded_files)
+    with st.spinner("Merging Excel files..."):
+        merged_df, error = merge_excel_files(uploaded_files)
     
     if error:
         st.error(error)
     else:
+        st.success(f"Successfully uploaded {len(uploaded_files)} file(s)!")
         st.write("**Preview of Merged Data**")
         display_df = merged_df.copy()
         time_columns = [
@@ -221,7 +231,7 @@ if uploaded_files:
         for col in valid_time_columns:
             display_df[col] = display_df[col].apply(seconds_to_time)
         
-        st.dataframe(display_df, use_container_width=True)  # Use dataframe for better table display
+        st.dataframe(display_df, use_container_width=True)
         
         output = BytesIO()
         with pd.ExcelWriter(output, engine='openpyxl') as writer:
@@ -265,4 +275,9 @@ if uploaded_files:
 else:
     st.info("Please upload one or more Excel files to merge.")
 
-st.markdown('</div>', unsafe_allow_html=True)  # Close main container
+# Clean up temporary upload directory
+import shutil
+if os.path.exists(UPLOAD_DIR):
+    shutil.rmtree(UPLOAD_DIR)
+
+st.markdown('</div>', unsafe_allow_html=True)
