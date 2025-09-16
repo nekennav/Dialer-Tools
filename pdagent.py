@@ -15,8 +15,8 @@ def get_base64_image(image_path):
     with open(image_path, "rb") as img_file:
         return base64.b64encode(img_file.read()).decode()
 
-# Set background image or fallback to solid color
-background_image = "background.jpg"  # Ensure this file exists in your project directory
+# Set background image
+background_image = "demon_slayer_background.jpg"  # Update this with the downloaded image file name
 try:
     img_base64 = get_base64_image(background_image)
     st.markdown(
@@ -39,7 +39,7 @@ try:
         unsafe_allow_html=True
     )
 except FileNotFoundError:
-    st.warning("Background image 'background.jpg' not found. Using default background.")
+    st.warning("Background image 'demon_slayer_background.jpg' not found. Using default background.")
     st.markdown(
         """
         <style>
