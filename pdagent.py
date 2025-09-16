@@ -40,18 +40,16 @@ st.markdown(
         text-align: center;
         text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
     }}
-    /* Subtitle styling */
-    h3 {{
-        color: #1e90ff; /* Blue for NEKENNAV */
-        font-family: 'Arial', sans-serif;
-        text-align: center;
-    }}
     /* File uploader styling */
     .stFileUploader {{
         background-color: rgba(255, 107, 53, 0.1); /* Light orange tint */
         border: 2px solid #ff6b35; /* Solid orange border */
         border-radius: 10px;
         padding: 10px;
+    }}
+    /* File uploader label styling */
+    .stFileUploader label {{
+        color: #ffffff; /* White for file uploader label */
     }}
     /* Button styling */
     .stButton > button {{
@@ -90,10 +88,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Title and description
+# Title
 st.markdown('<div class="main-container">', unsafe_allow_html=True)
 st.title("PREDICTIVE SUMMARIZER")
-st.markdown("<h3>NEKENNAV</h3>", unsafe_allow_html=True)
 
 # File uploader widget
 uploaded_files = st.file_uploader(
@@ -254,8 +251,6 @@ if uploaded_files:
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             key="download_merged"
         )
-else:
-    st.info("Please upload one or more Excel files to merge.")
 
 # Clean up temporary upload directory
 import shutil
