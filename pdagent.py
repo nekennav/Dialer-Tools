@@ -35,14 +35,14 @@ st.markdown(
     }}
     /* Title styling with Demon Slayer-inspired colors */
     h1 {{
-        color: #ff6b35; /* Vibrant orange for title */
+        color: #ffffff; /* White for PREDICTIVE SUMMARIZER */
         font-family: 'Arial', sans-serif;
         text-align: center;
         text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
     }}
     /* Subtitle styling */
     h3 {{
-        color: #ffd23f; /* Golden yellow for subtitle */
+        color: #1e90ff; /* Blue for NEKENNAV */
         font-family: 'Arial', sans-serif;
         text-align: center;
     }}
