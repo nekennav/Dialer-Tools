@@ -5,9 +5,41 @@ from datetime import datetime
 import os
 from openpyxl.utils import get_column_letter
 from openpyxl.styles import Alignment
+import base64
 
 # Set page configuration
 st.set_page_config(page_title="PREDICTIVE SUMMARIZER", page_icon="📊")
+
+# Function to encode image to base64
+def get_base64_image(image_path):
+    with open(image_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
+
+# Set background image
+background_image = "background.jpg"  # Ensure this file exists in your project directory
+try:
+    img_base64 = get_base64_image(background_image)
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: url("data:image/jpg;base64,{img_base64}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }}
+        .stApp > div {{
+            background: rgba(255, 255, 255, 0.8); /* Semi-transparent overlay for readability */
+            padding: 20px;
+            border-radius: 10px;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+except FileNotFoundError:
+    st.warning("Background image 'background.jpg' not found. Please ensure it's in the project directory.")
 
 # Title and description
 st.title("PREDICTIVE SUMMARIZER")
