@@ -25,34 +25,18 @@ st.markdown(
         color: #f0f0f0; /* Light gray for text readability */
         background-color: #2c1810; /* Dark brown fallback color */
     }}
-    /* Semi-transparent overlay for content readability with rising animation */
+    /* Semi-transparent overlay for content readability */
     .main-container {{
         background: rgba(44, 24, 16, 0.8); /* Dark brown semi-transparent overlay */
         padding: 30px;
         border-radius: 15px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         margin: 20px;
-        animation: rise 1.5s ease-out forwards; /* Rising animation */
         max-width: 90vw; /* Responsive width */
         margin-left: auto;
         margin-right: auto;
     }}
-    /* Rising animation keyframes */
-    @keyframes rise {{
-        0% {{
-            transform: translateY(100px);
-            opacity: 0;
-        }}
-        70% {{
-            transform: translateY(-10px);
-            opacity: 0.8;
-        }}
-        100% {{
-            transform: translateY(0);
-            opacity: 1;
-        }}
-    }}
-    /* Title styling with Demon Slayer-inspired colors, black stroke, and falling animation */
+    /* Title styling with Demon Slayer-inspired colors and black stroke */
     h1 {{
         color: #ffffff; /* White for PREDICTIVE SUMMARIZER */
         font-family: 'Arial', sans-serif;
@@ -62,23 +46,7 @@ st.markdown(
              1px -1px 0 #000000,
             -1px  1px 0 #000000,
              1px  1px 0 #000000; /* Black stroke effect */
-        animation: fall 1.5s ease-out forwards; /* Falling animation */
         font-size: 2.5rem; /* Base font size */
-    }}
-    /* Falling animation keyframes */
-    @keyframes fall {{
-        0% {{
-            transform: translateY(-100px);
-            opacity: 0;
-        }}
-        70% {{
-            transform: translateY(10px);
-            opacity: 0.8;
-        }}
-        100% {{
-            transform: translateY(0);
-            opacity: 1;
-        }}
     }}
     /* File uploader styling */
     .stFileUploader {{
@@ -86,6 +54,7 @@ st.markdown(
         border: 2px solid #ff6b35; /* Solid orange border */
         border-radius: 10px;
         padding: 10px;
+        margin-top: 20px; /* Slightly lower positioning */
     }}
     /* File uploader label styling */
     .stFileUploader label {{
@@ -137,6 +106,9 @@ st.markdown(
         }}
         h1 {{
             font-size: 1.8rem; /* Smaller title on mobile */
+        }}
+        .stFileUploader {{
+            margin-top: 10px; /* Slightly less margin on mobile */
         }}
         .stFileUploader label {{
             font-size: 0.9rem; /* Smaller label on mobile */
@@ -324,4 +296,3 @@ if os.path.exists(UPLOAD_DIR):
     shutil.rmtree(UPLOAD_DIR)
 
 st.markdown('</div>', unsafe_allow_html=True)
-
