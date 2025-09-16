@@ -10,51 +10,22 @@ import base64
 # Set page configuration
 st.set_page_config(page_title="PREDICTIVE SUMMARIZER", page_icon="📊")
 
-# Function to encode image to base64
-def get_base64_image(image_path):
-    with open(image_path, "rb") as img_file:
-        return base64.b64encode(img_file.read()).decode()
-
-# Set background image
-background_image = "demon_slayer_bg.jpg"  # Update this with the saved image file name
-try:
-    img_base64 = get_base64_image(background_image)
-    st.markdown(
-        f"""
-        <style>
-        .stApp {{
-            background-image: url("data:image/jpg;base64,{img_base64}");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }}
-        .stApp > div {{
-            background: rgba(255, 255, 255, 0.8); /* Semi-transparent overlay for readability */
-            padding: 20px;
-            border-radius: 10px;
-        }}
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-except FileNotFoundError:
-    st.warning("Background image 'demon_slayer_bg.jpg' not found. Using default background.")
-    st.markdown(
-        """
-        <style>
-        .stApp {{
-            background-color: #f0f2f6; /* Fallback solid color */
-        }}
-        .stApp > div {{
-            background: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-        }}
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+# Set plain background
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-color: #f0f2f6; /* Plain background color */
+    }
+    .stApp > div {
+        background: rgba(255, 255, 255, 0.8); /* Semi-transparent overlay for readability */
+        padding: 20px;
+        border-radius: 10px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Title and description
 st.title("PREDICTIVE SUMMARIZER")
