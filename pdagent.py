@@ -16,7 +16,7 @@ def get_base64_image(image_path):
         return base64.b64encode(img_file.read()).decode()
 
 # Set background image
-background_image = "demon_slayer_background.jpg"  # Update this with the downloaded image file name
+background_image = "demon_slayer_bg.jpg"  # Update this with the saved image file name
 try:
     img_base64 = get_base64_image(background_image)
     st.markdown(
@@ -39,7 +39,7 @@ try:
         unsafe_allow_html=True
     )
 except FileNotFoundError:
-    st.warning("Background image 'demon_slayer_background.jpg' not found. Using default background.")
+    st.warning("Background image 'demon_slayer_bg.jpg' not found. Using default background.")
     st.markdown(
         """
         <style>
