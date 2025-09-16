@@ -8,7 +8,7 @@ from openpyxl.styles import Alignment
 import base64
 
 # Set page configuration
-st.set_page_config(page_title="NEIL", page_icon="📊", layout="wide")
+st.set_page_config(page_title="PREDICTIVE SUMMARIZER", page_icon="📊", layout="wide")
 
 # Custom CSS for Demon Slayer-themed styling
 background_image = "url('https://images7.alphacoders.com/139/1398431.jpg')"
@@ -25,13 +25,32 @@ st.markdown(
         color: #f0f0f0; /* Light gray for text readability */
         background-color: #2c1810; /* Dark brown fallback color */
     }}
-    /* Semi-transparent overlay for content readability */
+    /* Semi-transparent overlay for content readability with rising animation */
     .main-container {{
         background: rgba(44, 24, 16, 0.8); /* Dark brown semi-transparent overlay */
         padding: 30px;
         border-radius: 15px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         margin: 20px;
+        animation: rise 1.5s ease-out forwards; /* Rising animation */
+        max-width: 90vw; /* Responsive width */
+        margin-left: auto;
+        margin-right: auto;
+    }}
+    /* Rising animation keyframes */
+    @keyframes rise {{
+        0% {{
+            transform: translateY(100px);
+            opacity: 0;
+        }}
+        70% {{
+            transform: translateY(-10px);
+            opacity: 0.8;
+        }}
+        100% {{
+            transform: translateY(0);
+            opacity: 1;
+        }}
     }}
     /* Title styling with Demon Slayer-inspired colors, black stroke, and falling animation */
     h1 {{
@@ -44,6 +63,7 @@ st.markdown(
             -1px  1px 0 #000000,
              1px  1px 0 #000000; /* Black stroke effect */
         animation: fall 1.5s ease-out forwards; /* Falling animation */
+        font-size: 2.5rem; /* Base font size */
     }}
     /* Falling animation keyframes */
     @keyframes fall {{
@@ -70,6 +90,7 @@ st.markdown(
     /* File uploader label styling */
     .stFileUploader label {{
         color: #ffffff; /* White for file uploader label */
+        font-size: 1.1rem; /* Base font size */
     }}
     /* Button styling */
     .stButton > button {{
@@ -80,6 +101,7 @@ st.markdown(
         font-weight: bold;
         transition: background-color 0.3s;
         border: 1px solid #ffd23f; /* Golden border */
+        font-size: 1rem; /* Base font size */
     }}
     .stButton > button:hover {{
         background-color: #e55a2b; /* Darker orange on hover */
@@ -91,17 +113,41 @@ st.markdown(
         color: #f0f0f0; /* Light gray text */
         border: 1px solid #ff6b35; /* Solid orange border */
         border-radius: 8px;
+        font-size: 0.9rem; /* Base font size */
     }}
     /* Alert styling */
     .stAlert {{
         background-color: rgba(255, 211, 63, 0.2); /* Light golden tint */
         color: #f0f0f0; /* Light gray text */
         border-radius: 8px;
+        font-size: 0.9rem; /* Base font size */
     }}
     /* Table text */
     .stText, table {{
         color: #f0f0f0; /* Light gray for table text */
         font-family: 'Arial', sans-serif;
+        font-size: 0.9rem; /* Base font size */
+    }}
+    /* Responsive design for mobile */
+    @media (max-width: 600px) {{
+        .main-container {{
+            padding: 15px;
+            margin: 10px;
+            max-width: 95vw;
+        }}
+        h1 {{
+            font-size: 1.8rem; /* Smaller title on mobile */
+        }}
+        .stFileUploader label {{
+            font-size: 0.9rem; /* Smaller label on mobile */
+        }}
+        .stButton > button {{
+            padding: 8px 16px;
+            font-size: 0.85rem; /* Smaller button text */
+        }}
+        .stTextArea textarea, .stDataFrame, .stAlert, .stText, table {{
+            font-size: 0.8rem; /* Smaller text on mobile */
+        }}
     }}
     </style>
     """,
