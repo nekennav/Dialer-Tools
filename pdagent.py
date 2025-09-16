@@ -8,7 +8,7 @@ from openpyxl.styles import Alignment
 import base64
 
 # Set page configuration
-st.set_page_config(page_title="PREDICTIVE SUMMARIZER", page_icon="📊", layout="wide")
+st.set_page_config(page_title="NEIL", page_icon="📊", layout="wide")
 
 # Custom CSS for Demon Slayer-themed styling
 background_image = "url('https://images7.alphacoders.com/139/1398431.jpg')"
@@ -324,3 +324,4 @@ if os.path.exists(UPLOAD_DIR):
     shutil.rmtree(UPLOAD_DIR)
 
 st.markdown('</div>', unsafe_allow_html=True)
+
