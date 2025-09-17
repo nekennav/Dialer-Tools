@@ -6,10 +6,8 @@ import os
 from openpyxl.utils import get_column_letter
 from openpyxl.styles import Alignment
 import base64
-
 # Set page configuration
 st.set_page_config(page_title="NEIL", page_icon="📊", layout="wide")
-
 # Custom CSS for Demon Slayer-themed styling
 background_image = "url('https://images7.alphacoders.com/139/1398431.jpg')"
 st.markdown(
@@ -20,10 +18,15 @@ st.markdown(
         background-image: {background_image};
         background-size: cover;
         background-position: center;
-        background-attachment: fixed;
         background-repeat: no-repeat;
-        color: #f0f0f0; /* Light gray for text readability */
         background-color: #2c1810; /* Dark brown fallback color */
+        animation: panningBackground 20s linear infinite;
+        color: #f0f0f0; /* Light gray for text readability */
+    }}
+    @keyframes panningBackground {{
+        0% {{ background-position: 50% 0%; }}
+        50% {{ background-position: 50% 100%; }}
+        100% {{ background-position: 50% 0%; }}
     }}
     /* Semi-transparent overlay for content readability */
     .main-container {{
@@ -41,11 +44,11 @@ st.markdown(
         color: #ffffff; /* White for PREDICTIVE SUMMARIZER */
         font-family: 'Arial', sans-serif;
         text-align: center;
-        text-shadow: 
-            -1px -1px 0 #000000,  
+        text-shadow:
+            -1px -1px 0 #000000,
              1px -1px 0 #000000,
-            -1px  1px 0 #000000,
-             1px  1px 0 #000000; /* Black stroke effect */
+            -1px 1px 0 #000000,
+             1px 1px 0 #000000; /* Black stroke effect */
         font-size: 2.5rem; /* Base font size */
     }}
     /* File uploader styling */
@@ -125,23 +128,19 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
 # Title
 st.markdown('<div class="main-container">', unsafe_allow_html=True)
 st.title("PREDICTIVE SUMMARIZER")
-
 # File uploader widget
 uploaded_files = st.file_uploader(
     "Choose Excel files to merge",
     accept_multiple_files=True,
     type=['xlsx', 'xls']
 )
-
 # Create a directory to store uploaded files temporarily
 UPLOAD_DIR = "uploads"
 if not os.path.exists(UPLOAD_DIR):
     os.makedirs(UPLOAD_DIR)
-
 # Function to convert time to seconds
 def time_to_seconds(time_val):
     try:
@@ -161,7 +160,6 @@ def time_to_seconds(time_val):
         return 0
     except:
         return 0
-
 # Function to format seconds to [h]:mm:ss for display
 def seconds_to_time(seconds):
     if pd.isna(seconds):
@@ -172,7 +170,6 @@ def seconds_to_time(seconds):
     minutes = seconds // 60
     seconds %= 60
     return f"{hours}:{minutes:02d}:{seconds:02d}"
-
 # Function to merge and aggregate Excel files
 def merge_excel_files(files):
     try:
@@ -183,57 +180,56 @@ def merge_excel_files(files):
                 f.write(file.getbuffer())
             df = pd.read_excel(file_path, engine=None)
             dfs.append(df)
-        
+       
         if dfs:
             merged_df = pd.concat(dfs, ignore_index=True)
             columns_to_drop = ['SNo.', 'Total Calls', 'Pause Count']
             merged_df = merged_df.drop(columns=[col for col in columns_to_drop if col in merged_df.columns])
-            
+           
             if 'Collector Name' in merged_df.columns:
                 merged_df = merged_df[merged_df['Collector Name'].notna() & (merged_df['Collector Name'].str.strip() != '')]
             else:
                 return None, "Collector Name column not found in the data."
-            
+           
             time_columns = [
                 'Spent Time', 'Talk Time', 'AVG Talk Time', 'Wait Time',
                 'Average Wait Time', 'Write Time', 'AVG Write Time', 'Pause Time'
             ]
             valid_time_columns = [col for col in time_columns if col in merged_df.columns]
-            
+           
             for col in valid_time_columns:
                 merged_df[col] = merged_df[col].apply(time_to_seconds)
-            
+           
             agg_dict = {col: 'sum' for col in valid_time_columns}
             other_columns = [col for col in merged_df.columns if col not in valid_time_columns + ['Collector Name']]
             for col in other_columns:
                 agg_dict[col] = 'first'
-            
+           
             if not agg_dict:
                 return merged_df, None
-            
+           
             merged_df = merged_df.groupby('Collector Name').agg(agg_dict).reset_index()
-            
+           
             avg_row = {'Collector Name': 'Average'}
             for col in valid_time_columns:
                 avg_row[col] = merged_df[col].mean()
             for col in other_columns:
                 avg_row[col] = None
-            
+           
             avg_df = pd.DataFrame([avg_row])
             merged_df = pd.concat([merged_df, avg_df], ignore_index=True)
-            
+           
             return merged_df, None
         else:
             return None, "No valid Excel files uploaded."
-    
+   
     except Exception as e:
         return None, f"Error merging files: {str(e)}"
-
 # Process uploaded files
 if uploaded_files:
     with st.spinner("Merging Excel files..."):
         merged_df, error = merge_excel_files(uploaded_files)
-    
+   
     if error:
         st.error(error)
     else:
@@ -247,19 +243,19 @@ if uploaded_files:
         valid_time_columns = [col for col in time_columns if col in display_df.columns]
         for col in valid_time_columns:
             display_df[col] = display_df[col].apply(seconds_to_time)
-        
+       
         st.dataframe(display_df, use_container_width=True)
-        
+       
         output = BytesIO()
         with pd.ExcelWriter(output, engine='openpyxl') as writer:
             excel_df = merged_df.copy()
             for col in valid_time_columns:
                 excel_df[col] = excel_df[col] / 86400.0
-            
+           
             excel_df.to_excel(writer, index=False, sheet_name='Sheet1')
             workbook = writer.book
             worksheet = writer.sheets['Sheet1']
-            
+           
             for col in valid_time_columns:
                 col_idx = merged_df.columns.get_loc(col) + 1
                 col_letter = get_column_letter(col_idx)
@@ -267,10 +263,10 @@ if uploaded_files:
                     cell = worksheet[f"{col_letter}{row}"]
                     cell.number_format = '[h]:mm:ss'
                     cell.alignment = Alignment(horizontal='right')
-                
+               
                 header_cell = worksheet[f"{col_letter}1"]
                 header_cell.alignment = Alignment(horizontal='right')
-            
+           
             for col_idx in range(1, len(merged_df.columns) + 1):
                 col_name = merged_df.columns[col_idx - 1]
                 if col_name != 'Collector Name':
@@ -279,9 +275,9 @@ if uploaded_files:
                         cell = worksheet[f"{col_letter}{row}"]
                         if col_name not in valid_time_columns:
                             cell.alignment = Alignment(horizontal='right')
-        
+       
         output.seek(0)
-        
+       
         st.download_button(
             label="Download Merged Excel File",
             data=output,
@@ -289,10 +285,8 @@ if uploaded_files:
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             key="download_merged"
         )
-
 # Clean up temporary upload directory
 import shutil
 if os.path.exists(UPLOAD_DIR):
     shutil.rmtree(UPLOAD_DIR)
-
 st.markdown('</div>', unsafe_allow_html=True)
